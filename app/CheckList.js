@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 class CheckList extends Component {
     render() {
-        let tasks = this.props.tasks.map((task) => {
+        var tasks = this.props.tasks.map((task) => {
+            console.log('task=',task);
+
             <li className="checklist__task">
-                <input type="checkbox" defaultChecked={task.done} />
-                {task.name}
-                <a href="#" className="checklist__tasks--remove" />
+                adf
             </li>
         });
 

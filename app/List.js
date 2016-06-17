@@ -8,6 +8,7 @@ class List extends Component {
             return <Card key={card.id}
                         id={card.id}
                         title={card.title}
+                        color={card.color}
                         description={card.description}
                         tasks={card.tasks} />
         });

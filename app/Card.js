@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import { render } from 'react-dom';
 import CheckList from './CheckList';
 
 class Card extends Component {
     render() {
         return (
             <div className="card">
-                <div className="card_title">{this.props.title}</div>
-                <div className="card_details">
+                <div className="card__title">{this.props.title}</div>
+                <div className="card__details">
                     {this.props.description}
                     <CheckList cardId={this.props.id} tasks={this.props.tasks} />
                 </div>

@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
+import { render } from 'react-dom';
+import Task from './Task'
 
 class CheckList extends Component {
     render() {
         var tasks = this.props.tasks.map((task) => {
-            console.log('task=',task);
-
-            <li className="checklist__task">
-                adf
-            </li>
+            return <Task key={task.id}
+                    id={task.id}
+                    name={task.name}
+                    done={task.done} />
         });
+
+        console.log('tasks=', tasks);
 
         return (
             <div className="checklist">

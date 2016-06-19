@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { render } from 'react-dom';
 import Task from './Task'
 
@@ -22,6 +22,10 @@ class CheckList extends Component {
             </div>
         );
     }
+}
+
+CheckList.propTypes = {
+    tasks: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default CheckList;

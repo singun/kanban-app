@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { render } from 'react-dom';
 import Card from './Card';
 
@@ -20,6 +20,11 @@ class List extends Component {
             </div>
         );
     }
+}
+
+List.propType = {
+    title: PropTypes.string.isRequired,
+    cards: PropTypes.arrayOf(PropTypes.object)
 }
 
 export default List;

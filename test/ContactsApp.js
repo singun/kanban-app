@@ -1,5 +1,32 @@
 import React, { Component, PropTypes } from 'react';
 import { render } from 'react-dom';
+import 'whatwg-fetch';
+
+class ContactsAppContainer extends Component {
+    constructor() {
+        super();
+        this.state = {
+            contacts: []
+        };
+    }
+
+    componentDidMount() {
+        fetch('./contacts.json')
+        .then((response) => response.json())
+        .then((responseData) => {
+            this.setState({contacts: responseData});
+        })
+        .catch((error) => {
+            console.log('Error fetching and parsing data', error);
+        });
+    }
+
+    render() {
+        return (
+            <ContactsApp contacts={this.state.contacts} />
+        )
+    }
+}
 
 class ContactsApp extends Component {
     constructor() {
@@ -91,4 +118,5 @@ let contacts = [
     , { name: "Sebastian Markbage", email: "sebmarkbage@here.com" },
 ];
 
-render(<ContactsApp contacts={contacts}/>, document.getElementById('root'));
+// render(<ContactsApp contacts={contacts}/>, document.getElementById('root'));
+render(<ContactsAppContainer />, document.getElementById('root'));

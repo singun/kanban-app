@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { DragSource } from 'react-dnd';
+import constants from './constants';
 
 const SnackSpec = {
     beginDrag(props) {
@@ -55,4 +56,4 @@ Snack.propTypes = {
     name: PropTypes.string.isRequired
 };
 
-export default DragSource('snack', SnackSpec, collect)(Snack);
+export default DragSource(constants.SNACK, SnackSpec, collect)(Snack);

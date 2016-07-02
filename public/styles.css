@@ -122,7 +122,7 @@ input {
     transform: translateX(-250);
 }
 
-.example-enter .example-enter-active {
+.example-enter.example-enter-active {
     opacity: 1;
     transform: translateX(0);
     transition: 0.3s;
@@ -148,4 +148,26 @@ input {
     opacity: 1;
     transform: translateX(0);
     transition: 0.5s;
+}
+
+.toggle-enter {
+  max-height: 0;
+  overflow: hidden;
+}
+
+.toggle-enter.toggle-enter-active {
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height .25s ease-in;
+}
+
+.toggle-leave {
+  max-height: 300px;
+  overflow: hidden;
+}
+
+.toggle-leave.toggle-leave-active {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .25s ease-out;
 }

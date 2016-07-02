@@ -5,8 +5,8 @@ var webpack = require('webpack');
  */
 var config = {
   devtool: 'eval-source-map',
-  // entry:  __dirname + "/app/App.js",
-  entry:  __dirname + "/app-react-dnd/App.js",
+  entry:  __dirname + "/app/App.js",
+  // entry:  __dirname + "/app-react-dnd/App.js",
   // entry: __dirname + "/test/ContactsApp.js",
   // entry:  __dirname + "/test/AnimationShoppingList.js",
   output: {

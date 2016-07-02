@@ -18,6 +18,18 @@ class KanbanBoardContainer extends Component {
         };
     }
 
+    componentDidMount() {
+        fetch(API_URL + '/cards', {headers: API_HEADERS})
+        .then((response) => response.json())
+        .then((responseData) => {
+            console.log('responseData=', responseData);
+            this.setState({cards: responseData});
+        })
+        .catch((error) => {
+            console.log('Error fetching and parsing data', error);
+        });
+    }
+
     addTask(cardId, taskName) {
         let prevState = this.state;
         let cardIndex = this.state.cards.findIndex((card) => card.id === cardId);
@@ -115,16 +127,37 @@ class KanbanBoardContainer extends Component {
         });
     }
 
-    componentDidMount() {
-        fetch(API_URL + '/cards', {headers: API_HEADERS})
-        .then((response) => response.json())
-        .then((responseData) => {
-            console.log('responseData=', responseData);
-            this.setState({cards: responseData});
-        })
-        .catch((error) => {
-            console.log('Error fetching and parsing data', error);
-        });
+    updateCardStatus(cardId, listId) {
+      let cardIndex = this.state.cards.findIndex((card) => card.id === cardId);
+      let card = this.state.cards[cardIndex];
+
+      if(card.status !== listId) {
+        this.setState(update(this.state, {
+          cards: {
+            [cardIndex]: {
+              status: { $set: listId}
+            }
+          }
+        }));
+      }
+    }
+
+    updateCardPosition(cardId, afterId) {
+      if(cardId !== afterId) {
+        let cardIndex = this.state.cards.findIndex((card) => cardid === cardId);
+        let card = this.state.cards[cardIndex];
+
+        let afterIndex = this.state.cards.findIndex((card) => card.id === afterId);
+
+        this.setState(update(this.state, {
+          cards: {
+            $splice: [
+              [cardIndex, 1],
+              [afterIndex, 0, card]
+            ]
+          }
+        }));
+      }
     }
 
     render() {
@@ -133,7 +166,13 @@ class KanbanBoardContainer extends Component {
                                 toggle: this.toggleTask.bind(this),
                                 delete: this.deleteTask.bind(this),
                                 add: this.addTask.bind(this)
-                            }}/>
+                            }}
+
+                            cardCallbacks={{
+                              updateCardStatus: this.updateCardStatus.bind(this),
+                              updateCardPosition: this.updateCardPosition.bind(this)
+                            }}
+                            />
     }
 }
 

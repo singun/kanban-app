@@ -29,10 +29,8 @@ class Repos extends Component {
       </li>
     ));
 
-    console.log('children=', this.props.children);
-
     let child = this.props.children && React.cloneElement(this.props.children, {
-      respositories: this.state.repositories
+      repositories: this.state.repositories
     });
 
     return (

@@ -5,6 +5,7 @@ import CheckList from './CheckList';
 import marked from 'marked';
 import { DragSource } from 'react-dnd';
 import constants from './constants';
+import { Link } from 'react-router';
 
 let titlePropType = (props, propName, componentName) => {
     if (props[propName]) {
@@ -46,7 +47,6 @@ class Card extends Component {
 
     render() {
       const { connectDragSource } = this.props;
-
         let cardDetails;
 
         if(this.state.showDetails) {
@@ -73,14 +73,18 @@ class Card extends Component {
         return connectDragSource (
             <div className="card">
                 <div style={sideColor} />
-                <div className={
-                    this.state.showDetails ? "card__title card__title--is-open" : "card__title"
-                } onClick={this.toggleDetails.bind(this)}>{this.props.title}</div>
-                <ReactCSSTransitionGroup transitionName="toggle"
-                                        transitionEnterTimeout={250}
-                                        transitionLeaveTimeout={250} >
-                  {cardDetails}
-                </ReactCSSTransitionGroup>
+                <div className="card__edit">
+                  <Link to={'/edit/' + this.props.id}>&#9998;</Link>
+
+                  <div className={
+                      this.state.showDetails ? "card__title card__title--is-open" : "card__title"
+                  } onClick={this.toggleDetails.bind(this)}>{this.props.title}</div>
+                  <ReactCSSTransitionGroup transitionName="toggle"
+                                          transitionEnterTimeout={250}
+                                          transitionLeaveTimeout={250} >
+                    {cardDetails}
+                  </ReactCSSTransitionGroup>
+                </div>
             </div>
         );
     }

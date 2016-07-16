@@ -10,7 +10,8 @@ var config = {
   // entry: __dirname + "/test/ContactsApp.js",
   // entry:  __dirname + "/test/AnimationShoppingList.js",
   // entry:  __dirname + "/app-routing/App.js",
-  entry:  __dirname + "/app-flux/App.js",
+  // entry:  __dirname + "/app-flux/App.js",
+  entry:  __dirname + "/app-airport/App.js",
   output: {
     path: __dirname + "/public",
     filename: "bundle.js"

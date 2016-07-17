@@ -33,7 +33,7 @@ let KanbanAPI = {
   },
 
   addTask(cardId, task) {
-    return fetch(API_URL + '/cards/' + card.id + '/tasks', {
+    return fetch(API_URL + '/cards/' + cardId + '/tasks', {
       method: 'post',
       headers: API_HEADERS,
       body: JSON.stringify(task)

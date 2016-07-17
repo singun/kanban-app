@@ -14,10 +14,13 @@ class CardStore extends ReduceStore {
   }
 
   getCardIndex(id) {
+    // console.log('_state=', this._state);
     return this._state.findIndex((card) => card.id == id);
   }
 
   reduce(state, action) {
+    let cardIndex, taskIndex;
+
     switch(action.type) {
       case constants.FETCH_CARDS_SUCCESS:
         return action.payload.response;
@@ -27,7 +30,7 @@ class CardStore extends ReduceStore {
           $push: [action.payload.card]
         });
 
-      case constants.CREATE_TASK_SUCCESS:
+      case constants.CREATE_CARD_SUCCESS:
         cardIndex = this.getCardIndex(action.payload.card.id);
         return update(this.getState(), {
           [cardIndex]: {
@@ -38,13 +41,13 @@ class CardStore extends ReduceStore {
         });
 
       case constants.CREATE_CARD_ERROR:
-        cardIndex = this.getCardIndex(actions.payload.card.id);
+        cardIndex = this.getCardIndex(action.payload.card.id);
         return update(this.getState(), {
           $splice: [[cardIndex, 1]]
         });
 
       case constants.UPDATE_CARD:
-        cardIndex = this.getCardIndex(actions.payload.card.id);
+        cardIndex = this.getCardIndex(action.payload.card.id);
         return update(this.getState(), {
           [cardIndex]: {
             $set: action.payload.draftCard
@@ -52,7 +55,7 @@ class CardStore extends ReduceStore {
         });
 
       case constants.UPDATE_CARD_ERROR:
-        cardIndex = this.getCardIndex(actions.payload.card.id);
+        cardIndex = this.getCardIndex(action.payload.card.id);
         return update(this.getState(), {
           [cardIndex]: {
             $set: action.payload.card
@@ -60,7 +63,7 @@ class CardStore extends ReduceStore {
         });
 
       case constants.CREATE_TASK:
-        cardIndex = this.getCardIndex(actions.payload.cardId);
+        cardIndex = this.getCardIndex(action.payload.cardId);
         return update(this.getState(), {
           [cardIndex]: {
             tasks: {
@@ -70,7 +73,7 @@ class CardStore extends ReduceStore {
         });
 
       case constants.CREATE_TASK_SUCCESS:
-        cardIndex = this.getCardIndex(actions.payload.cardId);
+        cardIndex = this.getCardIndex(action.payload.cardId);
         taskIndex = this.getState()[cardIndex].tasks.findIndex((task) => (
           task.id == action.payload.task.id
         ));
@@ -88,7 +91,7 @@ class CardStore extends ReduceStore {
         });
 
       case constants.CREATE_TASK_ERROR:
-        cardIndex = this.getCardIndex(actions.payload.cardId);
+        cardIndex = this.getCardIndex(action.payload.card.id);
         taskIndex = this.getState()[cardIndex].tasks.findIndex((task) => (
           task.id == action.payload.task.id
         ));
@@ -122,6 +125,7 @@ class CardStore extends ReduceStore {
         });
 
       case constants.TOGGLE_TASK:
+        // console.log('payload=', action.payload);
         cardIndex = this.getCardIndex(action.payload.cardId);
         return update(this.getState(), {
           [cardIndex]: {
@@ -136,7 +140,7 @@ class CardStore extends ReduceStore {
         });
 
       case constants.TOGGLE_TASK_ERROR:
-        cardIndex = this.getCardIndex(action.payload.cardId);
+        cardIndex = this.getCardIndex(action.payload.card.id);
         return update(this.getState(), {
           [cardIndex]: {
             tasks: {

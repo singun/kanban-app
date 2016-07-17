@@ -3,11 +3,12 @@ import { DropTarget } from 'react-dnd';
 import { render } from 'react-dom';
 import Card from './Card';
 import constants from '../constants';
+import CardActionCreators from '../actions/CardActionCreators';
 
 const listTargetSpec = {
   hover(props, monitor) {
-    const draggedId = monitor.getItem().id;
-    props.cardCallbacks.updateCardStatus(draggedId, props.Id)
+    const draggedId = monitor.getItem();
+    CardActionCreators.updateCardStatus(draggedId.id, props.id);
   }
 };
 
@@ -18,35 +19,28 @@ function collect(connect, monitor) {
 }
 
 class List extends Component {
-    render() {
+  render() {
 
-      const { connectDropTarget } = this.props;
+    const { connectDropTarget } = this.props;
 
-        var cards = this.props.cards.map((card) => {
-            return <Card key={card.id}
-                        taskCallbacks={this.props.taskCallbacks}
-                        id={card.id}
-                        title={card.title}
-                        color={card.color}
-                        description={card.description}
-                        tasks={card.tasks} />
-        });
+    var cards = this.props.cards.map((card) => {
+      return <Card key={card.id} {...card} />
+    });
 
-        return connectDropTarget (
-            <div className="list">
-                <h1>{this.props.title}</h1>
-                {cards}
-            </div>
-        );
-    }
+    return connectDropTarget (
+      <div className="list">
+        <h1>{this.props.title}</h1>
+        {cards}
+      </div>
+    );
+  }
 }
 
 List.propTypes = {
-    title: PropTypes.string.isRequired,
-    cards: PropTypes.arrayOf(PropTypes.object),
-    taskCallbacks: PropTypes.object,
-    cardCallbacks: PropTypes.object,
-    connectDropTarget: PropTypes.func.isRequired
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  cards: PropTypes.arrayOf(PropTypes.object),
+  connectDropTarget: PropTypes.func.isRequired
 }
 
 // export default List;

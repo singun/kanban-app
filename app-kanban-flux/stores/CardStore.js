@@ -10,6 +10,7 @@ class CardStore extends ReduceStore {
   }
 
   getCard(id) {
+    console.log('getCard=', this._state.find((card) => card.id == id));
     return this._state.find((card) => card.id == id);
   }
 

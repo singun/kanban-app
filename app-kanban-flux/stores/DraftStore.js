@@ -20,7 +20,7 @@ class DraftStore extends ReduceStore {
   }
 
   reduce(state, action) {
-    switch (actions.type) {
+    switch (action.type) {
       case constants.CREATE_DRAFT:
         if (action.payload.card) {
           return update(this.getState(), {

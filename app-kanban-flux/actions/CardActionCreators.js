@@ -39,7 +39,7 @@ let CardActionCreators = {
 
   createDraft(card) {
     AppDispatcher.dispatch({
-      type.constants.CREAT_DRAFT,
+      type: constants.CREATE_DRAFT,
       payload: { card }
     });
   },

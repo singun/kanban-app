@@ -7,6 +7,7 @@ import marked from 'marked';
 import { DragSource } from 'react-dnd';
 // import constants from './constants';
 import { Link } from 'react-router';
+import CardActionCreators from '../actions/CardActionCreators';
 
 let titlePropType = (props, propName, componentName) => {
     if (props[propName]) {
@@ -43,14 +44,15 @@ class Card extends Component {
     }
 
     toggleDetails() {
-        this.setState({showDetails: !this.state.showDetails});
+        // this.setState({showDetails: !this.state.showDetails});
+        CardActionCreators.toggleCardDetails(this.props.id);
     }
 
     render() {
       const { connectDragSource } = this.props;
         let cardDetails;
 
-        if(this.state.showDetails) {
+        if(this.props.showDetails !== false) {
             cardDetails = (
                 <div className="card__details">
                     <span dangerouslySetInnerHTML={{__html:marked(this.props.description)}} />
@@ -78,7 +80,7 @@ class Card extends Component {
                   <Link to={'/edit/' + this.props.id}>&#9998;</Link>
 
                   <div className={
-                      this.state.showDetails ? "card__title card__title--is-open" : "card__title"
+                      this.props.showDetails !== false ? "card__title card__title--is-open" : "card__title"
                   } onClick={this.toggleDetails.bind(this)}>{this.props.title}</div>
                   <ReactCSSTransitionGroup transitionName="toggle"
                                           transitionEnterTimeout={250}

@@ -14,6 +14,13 @@ let CardActionCreators = {
     });
   },
 
+  toggleCardDetails(cardId) {
+    AppDispatcher.dispatch({
+      type: constants.TOGGLE_CARD_DETAILS,
+      payload: {cardId}
+    });
+  },
+
   addCard(card) {
     AppDispatcher.dispatchAsync(KanbanAPI.addCard(card), {
       request: constants.CREATE_CARD,
@@ -28,6 +35,20 @@ let CardActionCreators = {
       success: constants.UPDATE_CARD_SUCCESS,
       failure: constants.UPDATE_CARD_ERROR,
     }, { card, draftCard });
+  },
+
+  createDraft(card) {
+    AppDispatcher.dispatch({
+      type.constants.CREAT_DRAFT,
+      payload: { card }
+    });
+  },
+
+  updateDraft(field, value) {
+    AppDispatcher.dispatch({
+      type: constants.UPDATE_DRAFT,
+      payload: { field, value }
+    });
   },
 
   updateCardStatus: throttle((cardId, listId) => {

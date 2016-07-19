@@ -104,6 +104,16 @@ class CardStore extends ReduceStore {
           }
         });
 
+      case constants.TOGGLE_CARD_DETAILS:
+        cardIndex = this.getCardIndex(action.payload.cardId);
+        return update(this.getState(), {
+          [cardIndex]: {
+            showDetails: {
+              $apply: (currentValue) => (currentValue !== false) ? false : true
+            }
+          }
+        });
+
       case constants.DELETE_TASK:
         cardIndex = this.getCardIndex(action.payload.cardId);
         return update(this.getState(), {
